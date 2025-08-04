@@ -8,5 +8,5 @@ This blog is my little corner of the internet — a space where I document my le
 Not sure what wind brought you here, but I’m glad you stopped by.
 Hope you find something useful, or at least interesting, while you're here.
 
-> ## Contact Me
+> **Contact to me via:**  
 > 📧 Gmail: [thequan.work@gmail.com](mailto:thequan.work@gmail.com)
