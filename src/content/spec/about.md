@@ -1,9 +1,12 @@
 # About
-This is the demo site for [Fuwari](https://github.com/saicaca/fuwari).
+Hi, I'm Dao The Quan, a second-year student majoring in Information Security at the Posts and Telecommunications Institute of Technology (PTIT) in Vietnam.  
 
-::github{repo="saicaca/fuwari"}
+I'm passionate about cybersecurity, especially Capture The Flag (CTF) challenges, and enjoy exploring real-world attack techniques in my free time.  
+  
+This blog is my little corner of the internet — a space where I document my learning journey, from hands-on labs to small breakthroughs. I write these posts during my free time, both as a way to review what I’ve learned and to share with others who are also walking the same path.
 
-> ### Sources of images used in this site
-> - [Unsplash](https://unsplash.com/)
-> - [星と少女](https://www.pixiv.net/artworks/108916539) by [Stella](https://www.pixiv.net/users/93273965)
-> - [Rabbit - v1.4 Showcase](https://civitai.com/posts/586908) by [Rabbit_YourMajesty](https://civitai.com/user/Rabbit_YourMajesty)
+Not sure what wind brought you here, but I’m glad you stopped by.
+Hope you find something useful, or at least interesting, while you're here.
+
+> ## Contact Me
+> 📧 Gmail: [thequan.work@gmail.com](mailto:thequan.work@gmail.com)
