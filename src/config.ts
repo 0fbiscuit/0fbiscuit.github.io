@@ -81,7 +81,7 @@ export const profileConfig: ProfileConfig = {
 		},
 		{
 			name: "Hack The Box",
-			icon: "/htb.png",
+			icon: "fa6-brands:redhat",
 			url: "https://app.hackthebox.com/users/2250539",
 		},
 	],
