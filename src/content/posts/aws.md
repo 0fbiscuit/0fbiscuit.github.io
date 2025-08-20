@@ -175,7 +175,7 @@ It was obfuscated into something like JSFuck:
 
 <img width="898" height="176" alt="6d070bc2-c492-4750-95b8-0cf9d6f76afd" src="https://github.com/user-attachments/assets/905a2a6e-5e6c-466f-b401-f89a78160327" />  
 
-I used **[de4js**](https://de4js.kshift.me/) to deobfuscator:
+I used **[de4js](https://de4js.kshift.me/)** to deobfuscator:
 
 <img width="1335" height="876" alt="image 1" src="https://github.com/user-attachments/assets/127f93a8-aee0-4ccf-a11e-46298217076f" />
 
