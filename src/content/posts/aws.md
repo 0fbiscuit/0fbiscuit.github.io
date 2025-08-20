@@ -114,7 +114,6 @@ Finished
 - gc._msdcs.amzcorp.local
 - domaindnszones.amzcorp.local
 - forestdnszones.amzcorp.local
-- company-support.amzcorp.local
 
 ## Vhost enum:
 
