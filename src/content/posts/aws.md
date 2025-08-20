@@ -2,6 +2,7 @@
 title: WEB - Amazon Web Services (AWS) 
 published: 2025-08-20
 description: This post covers my process of exploiting Amazon Web Services (AWS) — a customizable vulnerable lab, hosted by AWS.
+image: "./aws_logo.png"
 tags: [redteam, AWS, real-life, pentest]
 category: Web Exploitation
 draft: false
