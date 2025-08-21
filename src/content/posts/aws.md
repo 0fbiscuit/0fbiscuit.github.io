@@ -350,7 +350,7 @@ And a leaked information including **username/password** of user `tyler`:
 - `tyler@amzcorp.local`
 - `{pXDWXyZ&>3h''W<` (URL-decode)
 
-Look up things:
+Look up things and found a **GIT** project:
 
 <img width="1149" height="199" alt="image 7" src="https://github.com/user-attachments/assets/f503b7f5-735f-41f9-8dfb-3b998309c82a" />  
 
