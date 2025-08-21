@@ -172,17 +172,17 @@ When reading page source, I found the **app.js** file:
 
 <img width="498" height="90" alt="43a93769-da63-43aa-8f41-d52afdea5be6" src="https://github.com/user-attachments/assets/bef74ccf-cc54-49ec-ae99-32be9a17943a" />  
 
-It was obfuscated into something like JSFuck:
+And it was obfuscated into something like JSFuck:
 
 <img width="898" height="176" alt="6d070bc2-c492-4750-95b8-0cf9d6f76afd" src="https://github.com/user-attachments/assets/905a2a6e-5e6c-466f-b401-f89a78160327" />  
 
-I used **[de4js](https://de4js.kshift.me/)** to deobfuscator:
+So I used **[de4js](https://de4js.kshift.me/)** to deobfuscator:
 
 <img width="1335" height="876" alt="image 1" src="https://github.com/user-attachments/assets/127f93a8-aee0-4ccf-a11e-46298217076f" />
 
 # **Early Access**
 
-While reading file **app.js**, I found something interesting here, in `GetToken()` function:
+After deobfuscated **app.js**, I saw an interesting part here, in `GetToken()` function:
 
 <img width="767" height="481" alt="image 2" src="https://github.com/user-attachments/assets/a2795076-924f-4ed7-ac90-38c63e1b0dbd" />  
 
@@ -193,13 +193,13 @@ var uuid = document.getElementById('uuid');
 var username = document.getElementById('username');
 ```
 
-Payload from client i
+Payload from client:
 
 ```bash
 {"get_token":"True","uuid":"<client-controlled>","username":"<client-controlled>"}
 ```
 
-This means that if we know or can guess someone else’s **uuid**, I can bruteforce **uuid** and request their token using this script:
+This means that if I know or can guess someone else’s **uuid**, I can bruteforce **uuid** and request their token using this script:
 
 ```bash
 import sys, base64, requests
