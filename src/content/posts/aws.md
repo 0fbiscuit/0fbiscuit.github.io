@@ -103,7 +103,6 @@ Found: jobs.amzcorp.local
 Found: gc._msdcs.amzcorp.local
 Found: domaindnszones.amzcorp.local
 Found: forestdnszones.amzcorp.local
-Found: [company-support.amzcorp.local](http://company-support.amzcorp.local/)
 
 Progress: 4989 / 4990 (99.98%)
 ===============================================================
