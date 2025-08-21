@@ -277,7 +277,7 @@ I meant, yes I was right about that sus `domain.c00.xyz`:
 games:*:18906:0:99999:7:::
 ```
 
-I used this script to extract the label before `.c00.xyz`, base64-decode it, pray and hope to find the flag while using grep `AWS{…}` to find the flag:
+I used this script to extract the label before `.c00.xyz`, base64-decode it, pray and hope to find the flag:
 
 ```bash
 import re, base64
