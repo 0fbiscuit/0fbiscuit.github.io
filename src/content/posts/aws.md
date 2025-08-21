@@ -366,7 +366,7 @@ Look up things and found a **GIT** project:
 
 # **Statement**
 
-Explore `jobs-development.amzcorp.local`, in **logs.txt** we can see that the path accessed was `/.git`, which tells us that there is an existing Git project:
+We knew about `jobs-development.amzcorp.local`, in **logs.txt** we can see that the path accessed was `/.git`, and we knew there is an existing Git project:
 
 <img width="795" height="657" alt="image 8" src="https://github.com/user-attachments/assets/5ecf2c93-6f01-470a-bbed-6a2c97b5fcc3" />  
 
@@ -376,7 +376,7 @@ In the `jobs_portal` folder we can see the web config, an API `/api/v4/user/edit
 
 And now, the problem is how to get Managers role?
 
-I tried login to account `tyler@amzcorp.local` / `{pXDWXyZ&>3h''W<` ****which I found in file **logs.txt** hope to find something here:
+I tried login to account `tyler@amzcorp.local` / `{pXDWXyZ&>3h''W<` which I found in file **logs.txt** hope to find something here:
 
 <img width="1914" height="937" alt="image 10" src="https://github.com/user-attachments/assets/d094b01b-ccc7-45b0-8df9-5ebd5f8ca51d" />  
 
@@ -530,7 +530,9 @@ testquan' order by 5-- -
 
 <img width="1915" height="937" alt="image 18" src="https://github.com/user-attachments/assets/4ae95023-aa71-4086-9ca4-06eba5f88a60" />  
 
-- 1:AWS_ACCESS_KEY_ID:AKIA3G38BCN8SCJORKFL,2:AWS_SECRET_ACCESS_KEY:GMTENUBiGygBeyOc+GpXsOfbQFfa3GGvpvb1fAjf,3:FLAG:**AWS{MySqL_T1m3_B453d_1nJ3c71on5_4_7h3_w1N}**
+- 1:AWS_ACCESS_KEY_ID:AKIA3G38BCN8SCJORKFL,\
+- 2:AWS_SECRET_ACCESS_KEY:GMTENUBiGygBeyOc+GpXsOfbQFfa3GGvpvb1fAjf,\
+- 3:FLAG:**AWS{MySqL_T1m3_B453d_1nJ3c71on5_4_7h3_w1N}**
 
 # Relentless
 
