@@ -655,17 +655,17 @@ privkey = Private_key(pubkey, d)
 - **ECDSA formula**:
 
 $$
- ⁍
+s = k-1(h + d \cdot r) \pmod{q}
 $$
 
-- With two different signatures but using the same kkk, we can compute:
+- With two different signatures but using the same k, we can compute:
 
 $$
-⁍
+k = s1 - s2h1 - h2 \pmod{q}
 $$
 
 $$
-⁍
+d = rs1k - h1 \pmod{q}
 $$
 
 - Therefore, only 2 valid JWTs are enough → the private key can be derived.
@@ -695,7 +695,7 @@ if __name__ == "__main__":
 {'username': 'testquan', 'email': 'testquan@gmail.com', 'account_status': True}
 ```
 
-Okay, now my job is register two users to obtain two different JWTs, extract (r, s, h) , recover k and d, rebuiled the private key from d, and forge a tony’s jwt.
+Okay, now my job is register two users to obtain two different JWTs, extract (r, s, h) , recover k and d, rebuiled the private key from d, and forge tony’s jwt.
 
 Full script forge tony’s jwt:
 
@@ -777,7 +777,7 @@ if __name__ == "__main__":
 eyJhbGciOiJFUzI1NiJ9.eyJ1c2VybmFtZSI6InRvbnkiLCJlbWFpbCI6InRvbnlAYW16Y29ycC5sb2NhbCIsImFjY291bnRfc3RhdHVzIjp0cnVlfQ.C7UV_Vd_CxaMe1IENf44Kcn-dCxqhNFLkVBTQhkJR3yEnwvcCaAp1zPag_6Niku5ximrABSxCGZAthIm5bO45A
 ```
 
-Replace with the new jwt:
+Replace new jwt in this position:
 
 <img width="1166" height="326" alt="image 22" src="https://github.com/user-attachments/assets/c4e19957-81ea-4afd-b632-f97beeaeba3a" />  
 
