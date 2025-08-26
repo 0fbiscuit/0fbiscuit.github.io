@@ -140,7 +140,7 @@ After fixing the format, `FLAG: PTITCTF{n0_w4f_c4n_st0p_m3}`
 
 # Web1 - Easy
 
-We can easily login using **admin:admin**:
+We can easily login using `admin:admin`:
 
 <img width="1651" height="780" alt="image 1" src="https://github.com/user-attachments/assets/25b28219-6312-450e-93de-8c7d8a457946" /> 
 
