@@ -29,7 +29,7 @@ Consequences:
 - Can not use `substr/left/right/ascii/hex`.
 - Avoid appearing directly `b,y,z,x,_` in user’s input.
 
-This is my script bash to solve this challenge:
+This is my Bash script to solve this challenge:
 
 ```bash
 host='http://103.197.184.163:12113'
