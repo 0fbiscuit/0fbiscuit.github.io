@@ -1,6 +1,6 @@
 ---
 title: WEB - PTITCTF 2025 Preliminary Round
-published: 2025-08-20
+published: 2025-08-27
 description: This is our local CTF competition at our Institute. I participated in the Web Exploitation category, and this is my write-up.
 image: "./ptitctf.png"
 tags: [CTF]
