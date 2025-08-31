@@ -298,7 +298,7 @@ Bài này sẽ khai thác đọc `HOLACTF{...}` bằng cách lợi dụng việc
 
 ---
 
-## Chuỗi hai thác
+## Chuỗi khai thác
 
 1. Đăng ký và đăng nhập để có thư mục `upload/testq/`.
 2. Tạo **PHAR–GIF polyglot**. Metadata chứa object `Logger` sao cho destructor append PHP vào `logMD5.php`.
