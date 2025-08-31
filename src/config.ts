@@ -79,11 +79,11 @@ export const profileConfig: ProfileConfig = {
 			icon: "fa6-brands:discord",
 			url: "https://discord.com/invite/qy5ESDe9",
 		},
-		{
-			name: "Hack The Box",
-			icon: "fa6-brands:codepen",
-			url: "https://app.hackthebox.com/users/2250539",
-		},
+		// {
+		// 	name: "Hack The Box",
+		// 	icon: "fa6-brands:codepen",
+		// 	url: "https://app.hackthebox.com/users/2250539",
+		// },
 	],
 };
 
