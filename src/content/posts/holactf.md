@@ -518,7 +518,7 @@ PS C:\Users\biscuit\Desktop>
 ```
 `FLAG: HOLACTF{I_really_love_EHCCCCC_b3c78f2d5c35}`
 
-# WEB- Sanity check
+# WEB - Sanity check
 
 ```text
 Author
