@@ -77,7 +77,7 @@ export const profileConfig: ProfileConfig = {
 		{
 			name: "Discord",
 			icon: "fa6-brands:discord",
-			url: "https://discord.com/invite/qy5ESDe9",
+			url: "https://discord.com/users/914463151255351336",
 		},
 		// {
 		// 	name: "Hack The Box",
