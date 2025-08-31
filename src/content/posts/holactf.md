@@ -528,7 +528,35 @@ Description
 Chào mừng bạn ghé thăm website “vibe coding” của mình! Thực ra mình dựng nó chỉ để test xem server cần oxi không thôi, nhưng ở đâu đó vẫn có vài lỗi nho nhỏ đang ẩn mình. Liệu bạn có tìm ra chúng không?
 ```
 
-Mình thấy ở `/update` duyệt `for char in data['data']` rồi ép `int(char)` ∈ {0,1}. Nếu `data['data']` là dict thì vòng lặp đi qua **key**. Nên mình sẽ tạo đúng 512 key sao cho `int(key)` luôn là 0 hoặc 1, rồi gắn một value chứa `"Holactf"`. Server lưu `str(dict)` vào file nên chuỗi `"Holactf"` xuất hiện. `/get_flag` chỉ cần `"Holactf" in data` nên trả flag.
+Mình thấy ở `/update` duyệt sẽ check valid input như sau: duyệt `for char in data['data']` rồi ép `int(char)` ∈ {0,1}. Nếu `data['data']` là dict thì vòng lặp đi qua **key**. Nên mình sẽ tạo đúng 512 key sao cho `int(key)` luôn là 0 hoặc 1, rồi gắn một value chứa `"Holactf"`. Server lưu `str(dict)` vào file nên chuỗi `"Holactf"` xuất hiện. `/get_flag` chỉ cần `"Holactf" in data` nên trả flag.
+
+```python
+def is_valid_input(input):
+    """Check if input is valid or not"""
+    if input == '' or len(input) != NUMBER_OF_BITS:
+        return False
+    try:
+        for char in input:
+            if int(char) != 0 and int(char) != 1:
+                return False
+    except ValueError:
+        return False
+    return True
+```
+
+```python
+@app.route('/update', methods=['POST'])
+@is_User_Exist
+def update():
+    try:
+        data = request.json
+        if(not is_valid_input(data['data'])):
+            return jsonify({'error':'Invalid input'})
+        save_to_file(data['data'], get_user_filename())
+        return jsonify({'status': 'updated', 'new_state': data['data']})
+    except Exception as e:
+        return jsonify({'error':e})
+```
 
 Script tạo `data`:
 
