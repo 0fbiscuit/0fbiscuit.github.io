@@ -3,7 +3,7 @@ title: WEB - HOLACTF 2025
 published: 2025-08-31
 description: Đây là write up cho các bài Web mà mình làm được khi tham gia HOLACTF 2025 - một sân chơi An toàn thông tin do CLB EHC tổ chức. (Mình sẽ update lại bằng tiếng anh sau)
 image: "./holactf.png"
-tags: [CTF, Web Exploitation, Exploit]
+tags: [CTF, Web Exploitation, Exploit, HOLACTF, EHC]
 category: Web Exploitation
 draft: false
 ---
