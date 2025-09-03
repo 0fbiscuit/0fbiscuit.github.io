@@ -10,7 +10,7 @@ draft: false
 
 # HOLACTF 2025
 
-<img width="1916" height="1079" alt="Screenshot 2025-08-31 115639" src="https://github.com/user-attachments/assets/5dc52ce8-c076-4974-8e1c-dbed33e18c09" />  
+<img width="1918" height="1079" alt="image" src="https://github.com/user-attachments/assets/9ea15e25-dc07-437c-b741-70e83e0af7c6" />
 
 # WEB - Magic random
 
