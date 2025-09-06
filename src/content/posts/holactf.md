@@ -116,7 +116,7 @@ if __name__ == "__main__":
         print(requests.get(API, params={"attack_name": s}).json().get("error",""))
 ```
 
-Đọc source code sẽ thấy với filter này thì mình bị chặn những literal nhạy cảm, tất nhiên là mình cũng bị chặn import, os lẫn sys  ở payload đầu vào, những cái rất quan trọng để đọc được flag: 
+Đọc source code sẽ thấy với filter này thì mình bị chặn những literal nhạy cảm, tất nhiên là mình cũng bị chặn `import`, `os` lẫn `sys`  ở payload đầu vào, những cái rất quan trọng để đọc được flag: 
 
 ```python
 def special_filter(user_input):
