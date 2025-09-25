@@ -3,7 +3,7 @@ title: WEB - Cat Of The Year DDC25
 published: 2025-09-26
 description: This kind of SSTI challenge hides the flag too well, so I write this write-up just to store it and to find in need.
 image: "./injection.png"
-tags: [redteam, real-life, pentest, SSTI, SpEL]
+tags: [redteam, real-life, pentest, SSTI, SpEL, DDC, Web Exploitation]
 category: Web Exploitation
 draft: false
 ---
