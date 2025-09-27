@@ -86,7 +86,7 @@ coty
 
 **Pivot to the database via Spring beans:**
 
-After the direct info leak route failed (`ENV` read and `T(java.*)` calls returned nothing). Maybe the **FLAG** is stored in DB. I pivoted to the database via Spring beans. I can reference **Spring-managed beans** directly in the expression context using the `@beanName` syntax. If the app wires a `JdbcTemplate`/`DataSource`, I can call it to run SQL from within the template expression—so your attack surface “pivots” from the view layer to the **database**.
+After the direct info leak route failed (`ENV` read and `T(java.*)` calls returned nothing). Maybe the **FLAG** is stored in DB. I pivoted to the database via Spring beans. I can reference **Spring-managed beans** directly in the expression context using the `@beanName` syntax. If the app wires a `JdbcTemplate`/`DataSource`, I can call it to run SQL from within the template expression — so my attack surface “pivots” from the view layer to the **database**.
 [**JdbcTemplate**](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jdbc/core/JdbcTemplate.html) is common in Spring apps. It executes core JDBC workflow, leaving application code to provide **SQL** and extract results.  
 
 I will check if I can use `JdbcTemplate`:
