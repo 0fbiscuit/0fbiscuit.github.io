@@ -5,7 +5,7 @@ description: Blog này là note lúc mình tìm hiểu về NIM_TEMPLATE.
 image: "./nim.png"
 tags: [learning]
 category: Learn && Learn
-draft: true
+draft: false
 ---
 
 # Tìm hiểu flow làm việc của `NIM_TEMPLATE`
