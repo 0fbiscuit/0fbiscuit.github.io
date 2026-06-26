@@ -12,7 +12,7 @@ draft: false
 
 ---
 
-```
+```nim
 NIM_TEMPLATE = """
 import winim/lean
 import httpclient
