@@ -650,7 +650,7 @@ pubkey = Public_key(G, G*d)
 privkey = Private_key(pubkey, d)
 ```
 
-- **Nonce reuse in ECDSA**: if the same nonce k is reused to sign two different messages → the private key ddd can be completely recovered.
+- **Nonce reuse in ECDSA**: if the same nonce k is reused to sign two different messages → the private key d can be completely recovered.
 - **ECDSA formula**:
 
 $$
