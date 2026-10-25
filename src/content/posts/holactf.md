@@ -5,7 +5,7 @@ description: Đây là write up cho những bài khai thác lỗ hổng Web mà 
 image: "./holactf.png"
 tags: [CTF, Web Exploitation, Exploit, SSTI, POLYGLOT, HOLACTF, EHC]
 category: Web Exploitation
-draft: true
+draft: false
 ---
 
 # HOLACTF 2025
